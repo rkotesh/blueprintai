@@ -37,6 +37,23 @@ export interface CreateProjectPayload {
   targetPlatform: TargetPlatform;
 }
 
+export type InterviewRole = "AI" | "USER";
+
+export interface InterviewTurn {
+  id: string;
+  role: InterviewRole;
+  content: string;
+  turnIndex: number;
+  createdAt: string;
+}
+
+export interface InterviewNextResponse {
+  question: string;
+  whyAsking: string;
+  done: boolean;
+  turnIndex: number;
+}
+
 export interface ApiError {
   timestamp: string;
   status: number;

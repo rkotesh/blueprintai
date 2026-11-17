@@ -1,4 +1,4 @@
-import { AuthResponse, User, Project, CreateProjectPayload, ApiError } from "@/types";
+import { AuthResponse, User, Project, CreateProjectPayload, InterviewTurn, InterviewNextResponse, ApiError } from "@/types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080/api";
 
@@ -157,6 +157,18 @@ class ApiClient {
 
   public async deleteProject(id: string): Promise<void> {
     return this.request<void>(`/projects/${id}`, { method: "DELETE" });
+  }
+
+  // Interview Methods
+  public async getInterviewTurns(projectId: string): Promise<InterviewTurn[]> {
+    return this.request<InterviewTurn[]>(`/projects/${projectId}/interview`);
+  }
+
+  public async submitInterviewAnswer(projectId: string, answer?: string): Promise<InterviewNextResponse> {
+    return this.request<InterviewNextResponse>(`/projects/${projectId}/interview/next`, {
+      method: "POST",
+      body: JSON.stringify({ answer }),
+    });
   }
 }
 

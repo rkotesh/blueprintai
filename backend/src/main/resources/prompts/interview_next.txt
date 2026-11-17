@@ -1,0 +1,23 @@
+Project Title: {{projectTitle}}
+Target Platform: {{targetPlatform}}
+Goal Mode: {{mode}}
+User Experience Level: {{level}}
+
+Project Idea Concept:
+<<<
+{{ideaText}}
+>>>
+
+Prior Conversation Turns (Turn Count: {{turnCount}}):
+{{history}}
+
+Your task:
+Analyze the user's idea and prior answers. Formulate the next single, highest-priority question to clarify their product requirements, user workflows, data entities, or MVP scope.
+- Explain why you are asking this question in plain terms (why_asking).
+- If the conversation has covered target users, core actions, and essential data (typically 4 to 6 turns), or if the requirements are already clear and actionable, set done to true.
+- Output strictly in the required JSON format:
+{
+  "question": "The question to ask the user (or a summarizing wrap-up statement if done)",
+  "why_asking": "1-sentence plain-language explanation of why this architectural detail matters",
+  "done": false
+}
