@@ -1,0 +1,24 @@
+Project: {{projectTitle}}
+Feature Name: {{featureName}}
+Feature Description: {{featureDescription}}
+Priority: {{priority}}
+User Skill Level: {{level}}
+
+Your task:
+Perform a deep architectural analysis of this specific feature. Break it down into concrete building blocks that a non-technical builder can understand:
+1. screens: Names of user-facing UI screens, pages, or modals needed.
+2. data_needed: Specific database fields and models read or written by this feature.
+3. api_calls: HTTP endpoints (method, path, summary) required to communicate between frontend and backend.
+4. edge_cases: What could go wrong (e.g., empty states, network drop, duplicate submit, invalid input).
+5. security_notes: Plain-English security and privacy checks (e.g., auth check, input sanitization, rate limiting).
+6. steps_to_build: Ordered step-by-step checklist to implement this feature from frontend to database.
+
+Output strictly valid JSON matching this schema:
+{
+  "screens": ["..."],
+  "data_needed": ["..."],
+  "api_calls": ["..."],
+  "edge_cases": ["..."],
+  "security_notes": ["..."],
+  "steps_to_build": ["..."]
+}

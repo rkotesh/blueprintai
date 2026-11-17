@@ -1,0 +1,47 @@
+Project Title: {{projectTitle}}
+Target Platform: {{targetPlatform}}
+Goal Mode: {{mode}}
+User Experience Level: {{level}}
+
+Project Idea Concept:
+<<<
+{{ideaText}}
+>>>
+
+Requirements Discovery Interview Record:
+<<<
+{{interviewTurns}}
+>>>
+
+Your task:
+Synthesize the requirements interview and product idea into a complete, structured Project Blueprint.
+1. Formulate a 1-2 sentence executive summary.
+2. Identify distinct user personas.
+3. Extract features and categorize each as MVP (essential for the very first working version) or LATER (growth, scaling, advanced polish).
+4. For each feature, identify preliminary screen names, key data entities, and critical business logic notes.
+5. Define the core end-to-end user flows.
+6. Define the initial conceptual data model entities with key fields and relationships.
+
+Output strictly valid JSON matching this schema:
+{
+  "summary": "...",
+  "users": ["..."],
+  "features": [
+    {
+      "name": "...",
+      "description": "...",
+      "priority": "MVP",
+      "screens": ["..."],
+      "data_entities": ["..."],
+      "logic_notes": "..."
+    }
+  ],
+  "user_flows": ["..."],
+  "data_model": [
+    {
+      "entity": "...",
+      "fields": ["..."],
+      "relations": ["..."]
+    }
+  ]
+}

@@ -92,6 +92,33 @@ public class MockOpenAiClient implements AiClient {
                   ]
                 }
                 """;
+            case "feature_analyze" -> """
+                {
+                  "screens": ["AuthModal", "ProfileSettings", "SessionListView"],
+                  "data_needed": ["users.email", "users.password_hash", "refresh_tokens.token_hash"],
+                  "api_calls": [
+                    "POST /api/auth/login - Authenticate credentials and return tokens",
+                    "POST /api/auth/refresh - Rotate expired access tokens",
+                    "POST /api/auth/logout - Revoke active sessions"
+                  ],
+                  "edge_cases": [
+                    "User inputs unverified email format",
+                    "Token expired during active form submission",
+                    "Multiple concurrent sign-in attempts"
+                  ],
+                  "security_notes": [
+                    "Passwords hashed using BCrypt with minimum work factor 10",
+                    "Access tokens expire in 15 minutes",
+                    "Refresh tokens revoked upon logout"
+                  ],
+                  "steps_to_build": [
+                    "1. Define User entity with unique email constraint and password hash",
+                    "2. Implement JwtFilter intercepting Authorization Bearer tokens",
+                    "3. Build responsive React login and registration forms with validation",
+                    "4. Implement refresh token rotation interceptor on HTTP 401"
+                  ]
+                }
+                """;
             default -> "{}";
         };
 

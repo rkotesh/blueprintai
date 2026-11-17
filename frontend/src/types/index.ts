@@ -54,6 +54,56 @@ export interface InterviewNextResponse {
   turnIndex: number;
 }
 
+export type FeaturePriority = "MVP" | "LATER";
+export type FeatureStatus = "TODO" | "IN_PROGRESS" | "DONE";
+
+export interface Feature {
+  id: string;
+  projectId: string;
+  name: string;
+  description: string;
+  priority: FeaturePriority;
+  screens: string[];
+  dataEntities: string[];
+  logicNotes: string;
+  status: FeatureStatus;
+  createdAt: string;
+}
+
+export interface Blueprint {
+  id: string;
+  projectId: string;
+  version: number;
+  content: {
+    summary: string;
+    users: string[];
+    features: {
+      name: string;
+      description: string;
+      priority: FeaturePriority;
+      screens: string[];
+      data_entities: string[];
+      logic_notes: string;
+    }[];
+    user_flows: string[];
+    data_model: {
+      entity: string;
+      fields: string[];
+      relations: string[];
+    }[];
+  };
+  createdAt: string;
+}
+
+export interface FeatureAnalysis {
+  screens: string[];
+  data_needed: string[];
+  api_calls: string[];
+  edge_cases: string[];
+  security_notes: string[];
+  steps_to_build: string[];
+}
+
 export interface ApiError {
   timestamp: string;
   status: number;

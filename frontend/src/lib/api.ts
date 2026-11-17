@@ -1,4 +1,15 @@
-import { AuthResponse, User, Project, CreateProjectPayload, InterviewTurn, InterviewNextResponse, ApiError } from "@/types";
+import {
+  AuthResponse,
+  User,
+  Project,
+  CreateProjectPayload,
+  InterviewTurn,
+  InterviewNextResponse,
+  Feature,
+  Blueprint,
+  FeatureAnalysis,
+  ApiError,
+} from "@/types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080/api";
 
@@ -168,6 +179,34 @@ class ApiClient {
     return this.request<InterviewNextResponse>(`/projects/${projectId}/interview/next`, {
       method: "POST",
       body: JSON.stringify({ answer }),
+    });
+  }
+
+  // Blueprint & Feature Methods
+  public async generateBlueprint(projectId: string): Promise<Blueprint> {
+    return this.request<Blueprint>(`/projects/${projectId}/blueprint/generate`, {
+      method: "POST",
+    });
+  }
+
+  public async getLatestBlueprint(projectId: string): Promise<Blueprint> {
+    return this.request<Blueprint>(`/projects/${projectId}/blueprint`);
+  }
+
+  public async getFeatures(projectId: string): Promise<Feature[]> {
+    return this.request<Feature[]>(`/projects/${projectId}/features`);
+  }
+
+  public async updateFeature(featureId: string, payload: Partial<Feature>): Promise<Feature> {
+    return this.request<Feature>(`/features/${featureId}`, {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public async analyzeFeature(projectId: string, featureId: string): Promise<FeatureAnalysis> {
+    return this.request<FeatureAnalysis>(`/projects/${projectId}/features/${featureId}/analyze`, {
+      method: "POST",
     });
   }
 }
