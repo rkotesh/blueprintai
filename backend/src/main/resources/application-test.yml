@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    secret: dGVzdC1zZWNyZXQta2V5LWZvci1ibHVlcHJpbnRhaS11bml0LXRlc3RzLTEyMzQ1Ng==
+    access-token-expiration-minutes: 15
+    refresh-token-expiration-days: 14
+  openai:
+    api-key: mock-key
+    model: gpt-4o-mini
+    timeout-seconds: 5
+    max-retries: 1
+    rate-limit-per-hour: 1000
+    max-code-chars: 20000
+  cors:
+    allowed-origin: http://localhost:3000

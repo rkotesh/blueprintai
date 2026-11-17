@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: blueprintai-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/blueprintai}
+    username: ${SPRING_DATASOURCE_USERNAME:blueprint}
+    password: ${SPRING_DATASOURCE_PASSWORD:blueprint_password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:c29tZS1zdXBlci1zZWNyZXQtand0LWtleS1mb3ItYmx1ZXByaW50YWktcHJvZHVjdGlvbi1yZWFkeQ==}
+    access-token-expiration-minutes: ${JWT_ACCESS_MINUTES:15}
+    refresh-token-expiration-days: ${JWT_REFRESH_DAYS:14}
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    model: ${OPENAI_MODEL:gpt-4o-mini}
+    timeout-seconds: ${OPENAI_TIMEOUT_SECONDS:60}
+    max-retries: ${OPENAI_MAX_RETRIES:2}
+    rate-limit-per-hour: ${AI_RATE_LIMIT_PER_HOUR:30}
+    max-code-chars: ${AI_MAX_CODE_CHARS:20000}
+  cors:
+    allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

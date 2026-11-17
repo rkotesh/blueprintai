@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: blueprintai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: blueprintai
+      POSTGRES_USER: blueprint
+      POSTGRES_PASSWORD: blueprint_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U blueprint -d blueprintai"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: blueprintai-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/blueprintai
+      SPRING_DATASOURCE_USERNAME: blueprint
+      SPRING_DATASOURCE_PASSWORD: blueprint_password
+      JWT_SECRET: c29tZS1zdXBlci1zZWNyZXQtand0LWtleS1mb3ItYmx1ZXByaW50YWktcHJvZHVjdGlvbi1yZWFkeQ==
+      JWT_ACCESS_MINUTES: 15
+      JWT_REFRESH_DAYS: 14
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-mock-key}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      OPENAI_TIMEOUT_SECONDS: 60
+      OPENAI_MAX_RETRIES: 2
+      AI_RATE_LIMIT_PER_HOUR: 30
+      AI_MAX_CODE_CHARS: 20000
+      CORS_ALLOWED_ORIGIN: http://localhost:3000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: blueprintai-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080/api
+
+volumes:
+  pgdata:
