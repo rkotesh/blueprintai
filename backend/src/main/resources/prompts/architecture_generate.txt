@@ -1,0 +1,48 @@
+Project Title: {{projectTitle}}
+Target Platform: {{targetPlatform}}
+Goal Mode: {{mode}}
+User Experience Level: {{level}}
+
+Project Blueprint Summary:
+<<<
+{{blueprintSummary}}
+>>>
+
+Features:
+<<<
+{{featuresList}}
+>>>
+
+Selected Tech Stack Choices:
+<<<
+{{stackChoices}}
+>>>
+
+Your task:
+Generate a complete software architecture graph connecting Frontend, Backend, Database, Auth, and External services for this application.
+Rules:
+1. Nodes must each belong to one layer: FRONTEND, BACKEND, DATABASE, EXTERNAL, or AUTH.
+2. Nodes must have clear ids (e.g., "frontend-web", "api-gateway", "auth-service", "postgres-db", "payment-service").
+3. Edges must specify from and to node IDs, a human-readable action label (e.g. "Sends JWT credentials", "Queries order rows"), and the network protocol (e.g. "HTTPS", "SQL", "WSS", "REST").
+4. Ensure every component in the system is connected into a cohesive end-to-end topology.
+
+Output strictly valid JSON matching this schema:
+{
+  "nodes": [
+    {
+      "id": "...",
+      "label": "...",
+      "layer": "FRONTEND",
+      "description": "...",
+      "tech": "..."
+    }
+  ],
+  "edges": [
+    {
+      "from": "...",
+      "to": "...",
+      "label": "...",
+      "protocol": "..."
+    }
+  ]
+}

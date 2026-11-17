@@ -119,6 +119,157 @@ public class MockOpenAiClient implements AiClient {
                   ]
                 }
                 """;
+            case "architecture_generate" -> """
+                {
+                  "nodes": [
+                    {
+                      "id": "frontend-app",
+                      "label": "Next.js Web Client",
+                      "layer": "FRONTEND",
+                      "description": "Interactive browser UI with React Flow and TanStack Query",
+                      "tech": "Next.js 14, TypeScript, Tailwind"
+                    },
+                    {
+                      "id": "auth-service",
+                      "layer": "AUTH",
+                      "label": "JWT Security Gateway",
+                      "description": "Stateless authentication and token rotation guard",
+                      "tech": "Spring Security, BCrypt, JJWT"
+                    },
+                    {
+                      "id": "backend-api",
+                      "layer": "BACKEND",
+                      "label": "Spring Boot Monolith",
+                      "description": "Core domain services and business logic orchestration",
+                      "tech": "Java 21, Spring Boot 3"
+                    },
+                    {
+                      "id": "postgres-db",
+                      "layer": "DATABASE",
+                      "label": "PostgreSQL Database",
+                      "description": "Relational entities and JSONB blueprint documents",
+                      "tech": "PostgreSQL 16, Flyway"
+                    },
+                    {
+                      "id": "external-services",
+                      "layer": "EXTERNAL",
+                      "label": "External Cloud APIs",
+                      "description": "Third-party payment gateways and notification relays",
+                      "tech": "Stripe, SendGrid"
+                    }
+                  ],
+                  "edges": [
+                    {
+                      "from": "frontend-app",
+                      "to": "auth-service",
+                      "label": "POST /auth/login credentials",
+                      "protocol": "HTTPS"
+                    },
+                    {
+                      "from": "auth-service",
+                      "to": "backend-api",
+                      "label": "Validates claims & injects UserPrincipal",
+                      "protocol": "Internal"
+                    },
+                    {
+                      "from": "backend-api",
+                      "to": "postgres-db",
+                      "label": "Executes parameterized SQL queries",
+                      "protocol": "SQL"
+                    },
+                    {
+                      "from": "backend-api",
+                      "to": "external-services",
+                      "label": "Webhooks & REST calls",
+                      "protocol": "HTTPS"
+                    }
+                  ]
+                }
+                """;
+            case "architecture_trace" -> """
+                {
+                  "steps": [
+                    {
+                      "order": 1,
+                      "node_id": "frontend-app",
+                      "edge_id": "frontend-app-to-auth",
+                      "analogy": "Like handing your ticket to the usher at the theater entrance.",
+                      "plain_explanation": "The user clicks the button on their screen, sending an encrypted request over the internet.",
+                      "technical_detail": "Browser sends HTTPS POST request with Bearer JWT in the Authorization header."
+                    },
+                    {
+                      "order": 2,
+                      "node_id": "auth-service",
+                      "edge_id": "auth-to-backend",
+                      "analogy": "Like checking a passport barcode against the digital security list.",
+                      "plain_explanation": "The security layer verifies who you are and ensures you have permission to make this change.",
+                      "technical_detail": "JwtFilter validates signature, parses claims, and loads UserPrincipal into SecurityContext."
+                    },
+                    {
+                      "order": 3,
+                      "node_id": "backend-api",
+                      "edge_id": "backend-to-db",
+                      "analogy": "Like an accountant writing an entry into the official ledger book.",
+                      "plain_explanation": "The backend server processes the business rules and instructs the database to save the record.",
+                      "technical_detail": "Service layer triggers transactional JPA entity persistence and flushes to the database connection pool."
+                    },
+                    {
+                      "order": 4,
+                      "node_id": "postgres-db",
+                      "edge_id": "db-commit",
+                      "analogy": "Like locking the safe after placing the document inside.",
+                      "plain_explanation": "The database writes the record to permanent storage and confirms the save.",
+                      "technical_detail": "PostgreSQL executes INSERT/UPDATE on indexed table, commits transaction, and returns row UUID."
+                    }
+                  ]
+                }
+                """;
+            case "stack_recommend" -> """
+                {
+                  "layers": [
+                    {
+                      "layer": "Frontend",
+                      "recommended": "Next.js 14 (App Router)",
+                      "why": "Modern React framework combining fast server rendering with rich client interactivity.",
+                      "tradeoffs": "Moderate learning curve with server vs client component mental models.",
+                      "alternatives": [
+                        { "name": "Vite + React SPA", "when_better": "Simpler mental model when SEO is not critical." },
+                        { "name": "Remix / React Router 7", "when_better": "Better nested loading patterns for web apps." }
+                      ]
+                    },
+                    {
+                      "layer": "Backend",
+                      "recommended": "Spring Boot 3.3 (Java 21)",
+                      "why": "Enterprise-grade type safety, high performance, and bulletproof relational data integrity.",
+                      "tradeoffs": "More verbose boilerplate compared to Node.js or Python.",
+                      "alternatives": [
+                        { "name": "Node.js (NestJS / Express)", "when_better": "Single-language JavaScript stack across frontend and backend." },
+                        { "name": "Python (FastAPI)", "when_better": "Heavily data science or AI-agent centric workflows." }
+                      ]
+                    },
+                    {
+                      "layer": "Database",
+                      "recommended": "PostgreSQL 16",
+                      "why": "The industry gold standard relational database, supporting native JSONB for flexible documents.",
+                      "tradeoffs": "Requires schema migrations and connection pool tuning.",
+                      "alternatives": [
+                        { "name": "MySQL", "when_better": "Standard web hosting with existing shared infrastructure." },
+                        { "name": "MongoDB", "when_better": "Schemaless documents where relational integrity is not needed." }
+                      ]
+                    },
+                    {
+                      "layer": "Authentication",
+                      "recommended": "Stateless JWT with Refresh Rotation",
+                      "why": "Scales without session servers, allows fast decoupled API access.",
+                      "tradeoffs": "Requires client-side interceptor for token refresh handling.",
+                      "alternatives": [
+                        { "name": "Session Cookies", "when_better": "Monolithic web apps serving server-rendered HTML." },
+                        { "name": "Auth0 / Clerk", "when_better": "Fully managed third-party auth service with pre-built UI." }
+                      ]
+                    }
+                  ]
+                }
+                """;
             default -> "{}";
         };
 

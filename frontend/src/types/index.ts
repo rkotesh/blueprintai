@@ -104,6 +104,63 @@ export interface FeatureAnalysis {
   steps_to_build: string[];
 }
 
+export interface ArchitectureNode {
+  id: string;
+  label: string;
+  layer: "frontend" | "backend" | "database" | "auth" | "external";
+  description: string;
+  tech: string;
+}
+
+export interface ArchitectureEdge {
+  from: string;
+  to: string;
+  label: string;
+  protocol: string;
+}
+
+export interface ArchitectureGraph {
+  id: string;
+  projectId: string;
+  version: number;
+  nodes: ArchitectureNode[];
+  edges: ArchitectureEdge[];
+  createdAt: string;
+}
+
+export interface TraceStep {
+  order: number;
+  node_id: string;
+  edge_id: string;
+  analogy: string;
+  plain_explanation: string;
+  technical_detail: string;
+}
+
+export interface TraceResponse {
+  trace_id: string;
+  action: string;
+  steps: TraceStep[];
+}
+
+export interface StackAlternative {
+  name: string;
+  pros: string[];
+  cons: string[];
+  when_to_choose: string;
+}
+
+export interface StackChoice {
+  id: string;
+  projectId: string;
+  layer: string;
+  recommended: string;
+  alternatives: StackAlternative[];
+  reasoning: string;
+  userChoice: string;
+  createdAt: string;
+}
+
 export interface ApiError {
   timestamp: string;
   status: number;

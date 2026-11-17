@@ -8,6 +8,9 @@ import {
   Feature,
   Blueprint,
   FeatureAnalysis,
+  ArchitectureGraph,
+  TraceResponse,
+  StackChoice,
   ApiError,
 } from "@/types";
 
@@ -207,6 +210,36 @@ class ApiClient {
   public async analyzeFeature(projectId: string, featureId: string): Promise<FeatureAnalysis> {
     return this.request<FeatureAnalysis>(`/projects/${projectId}/features/${featureId}/analyze`, {
       method: "POST",
+    });
+  }
+
+  // Architecture & Trace Methods
+  public async getArchitecture(projectId: string): Promise<ArchitectureGraph> {
+    return this.request<ArchitectureGraph>(`/projects/${projectId}/architecture`);
+  }
+
+  public async generateArchitecture(projectId: string): Promise<ArchitectureGraph> {
+    return this.request<ArchitectureGraph>(`/projects/${projectId}/architecture/generate`, {
+      method: "POST",
+    });
+  }
+
+  public async traceAction(projectId: string, payload: { action?: string; featureId?: string }): Promise<TraceResponse> {
+    return this.request<TraceResponse>(`/projects/${projectId}/architecture/trace`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  // Stack Advisor Methods
+  public async getStack(projectId: string): Promise<StackChoice[]> {
+    return this.request<StackChoice[]>(`/projects/${projectId}/stack`);
+  }
+
+  public async updateStackChoice(choiceId: string, userChoice: string): Promise<StackChoice> {
+    return this.request<StackChoice>(`/stack/${choiceId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ userChoice }),
     });
   }
 }

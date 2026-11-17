@@ -1,0 +1,36 @@
+Project Title: {{projectTitle}}
+Target Platform: {{targetPlatform}}
+Goal Mode: {{mode}}
+User Experience Level: {{level}}
+
+Project Blueprint Summary:
+<<<
+{{blueprintSummary}}
+>>>
+
+Your task:
+Recommend an optimal tech stack for each fundamental architectural layer (e.g. Frontend Framework, Backend API, Database, Authentication, Hosting/Infrastructure) tailored to the project's platform and user experience level.
+For each layer provide:
+1. layer: Layer name (e.g., "Frontend", "Backend", "Database", "Authentication", "Hosting")
+2. recommended: Technology name (e.g., "Next.js 14", "Spring Boot 3", "PostgreSQL 16", "JWT / Supabase Auth")
+3. why: Plain-English explanation of why this is recommended
+4. tradeoffs: Key trade-offs, learning curve, and operational considerations
+5. alternatives: 2-3 alternatives with plain explanations of when they would be a better choice
+
+Output strictly valid JSON matching this schema:
+{
+  "layers": [
+    {
+      "layer": "...",
+      "recommended": "...",
+      "why": "...",
+      "tradeoffs": "...",
+      "alternatives": [
+        {
+          "name": "...",
+          "when_better": "..."
+        }
+      ]
+    }
+  ]
+}

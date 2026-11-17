@@ -1,0 +1,39 @@
+Project Title: {{projectTitle}}
+Action or Feature to Trace:
+<<<
+{{actionToTrace}}
+>>>
+
+Current Architecture Topology Nodes:
+<<<
+{{nodes}}
+>>>
+
+Current Architecture Topology Edges:
+<<<
+{{edges}}
+>>>
+
+Your task:
+Trace how this action or feature travels step-by-step through the architecture from user action to persistent data or external service response.
+For every step:
+- order: integer sequence starting from 1
+- node_id: ID of the active node handling this step
+- edge_id: ID or label of the connection being traversed (null for initial trigger)
+- analogy: 1-sentence real-world analogy of this step
+- plain_explanation: Plain-language explanation for someone with no coding background
+- technical_detail: Precise technical mechanics (HTTP headers, SQL query, token validation, status codes)
+
+Output strictly valid JSON matching this schema:
+{
+  "steps": [
+    {
+      "order": 1,
+      "node_id": "...",
+      "edge_id": "...",
+      "analogy": "...",
+      "plain_explanation": "...",
+      "technical_detail": "..."
+    }
+  ]
+}
