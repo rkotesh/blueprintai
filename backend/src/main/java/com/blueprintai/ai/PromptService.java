@@ -16,7 +16,8 @@ public class PromptService {
     public String loadTemplate(String templateName) {
         return templateCache.computeIfAbsent(templateName, name -> {
             try {
-                ClassPathResource resource = new ClassPathResource("prompts/" + name + ".txt");
+                String filename = name.endsWith(".txt") ? name : name + ".txt";
+                ClassPathResource resource = new ClassPathResource("prompts/" + filename);
                 return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
             } catch (IOException e) {
                 throw new IllegalStateException("Failed to load prompt template: " + name, e);

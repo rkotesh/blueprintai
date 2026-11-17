@@ -161,6 +161,59 @@ export interface StackChoice {
   createdAt: string;
 }
 
+export type MilestoneStatus = "TODO" | "IN_PROGRESS" | "DONE";
+
+export interface Milestone {
+  id: string;
+  projectId: string;
+  orderIndex: number;
+  title: string;
+  description: string;
+  concepts: string[];
+  status: MilestoneStatus;
+  createdAt: string;
+}
+
+export interface CodeExplanationContent {
+  layer: string;
+  summary: string;
+  analogy: string;
+  plain_explanation: string;
+  technical_detail: string;
+  key_takeaways: string[];
+}
+
+export interface CodeExplanation {
+  id: string;
+  projectId: string;
+  milestoneId?: string;
+  filename: string;
+  language: string;
+  codeText: string;
+  layer: string;
+  explanation: CodeExplanationContent;
+  createdAt: string;
+}
+
+export interface DebugResultContent {
+  layer: string;
+  title: string;
+  analogy: string;
+  plain_cause: string;
+  technical_cause: string;
+  fix_steps: string[];
+  preventive_tip: string;
+}
+
+export interface DebugSession {
+  id: string;
+  projectId: string;
+  errorText: string;
+  contextText?: string;
+  result: DebugResultContent;
+  createdAt: string;
+}
+
 export interface ApiError {
   timestamp: string;
   status: number;

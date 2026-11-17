@@ -9,5 +9,6 @@ import java.util.UUID;
 @Repository
 public interface StackChoiceRepository extends JpaRepository<StackChoice, UUID> {
     List<StackChoice> findAllByProjectIdOrderByCreatedAtAsc(UUID projectId);
+    List<StackChoice> findByProjectIdOrderByCreatedAtAsc(UUID projectId);
     void deleteAllByProjectId(UUID projectId);
 }

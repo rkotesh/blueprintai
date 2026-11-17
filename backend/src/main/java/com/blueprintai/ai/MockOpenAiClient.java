@@ -270,6 +270,69 @@ public class MockOpenAiClient implements AiClient {
                   ]
                 }
                 """;
+            case "milestones_generate" -> """
+                {
+                  "milestones": [
+                    {
+                      "order_index": 1,
+                      "title": "Project Setup & Scaffolding",
+                      "description": "Initialize monorepo, configure frontend and backend build tools, verify basic healthchecks.",
+                      "concepts": ["Monorepo", "Client-Server Architecture", "Healthchecks"],
+                      "validation_checklist": ["GET /actuator/health returns UP", "Frontend shows welcome dashboard"]
+                    },
+                    {
+                      "order_index": 2,
+                      "title": "Database Schema & User Models",
+                      "description": "Set up PostgreSQL Flyway migrations and define core user entities and repositories.",
+                      "concepts": ["Relational Schema", "Primary Keys", "Flyway Migrations"],
+                      "validation_checklist": ["Run migrations successfully", "Create and query a user record in DB"]
+                    },
+                    {
+                      "order_index": 3,
+                      "title": "Authentication & JWT Security",
+                      "description": "Implement registration, password hashing, and token issuance with refresh rotation.",
+                      "concepts": ["JWT Authentication", "Password Hashing (BCrypt)", "Stateless Security"],
+                      "validation_checklist": ["Register new user via POST /api/auth/register", "Access protected endpoint with Bearer token"]
+                    },
+                    {
+                      "order_index": 4,
+                      "title": "Core Feature MVP Workflow",
+                      "description": "Implement the primary value proposition workflow from frontend form to persistent storage.",
+                      "concepts": ["RESTful Endpoints", "Transaction Boundaries", "React State Management"],
+                      "validation_checklist": ["Submit form from UI", "Verify data saved and returned to client"]
+                    }
+                  ]
+                }
+                """;
+            case "code_explain" -> """
+                {
+                  "layer": "backend",
+                  "summary": "Handles user registration, validates credentials, and encrypts passwords into secure hashes.",
+                  "analogy": "Like a security guard checking employee badges and issuing encrypted building keycards at the front door.",
+                  "plain_explanation": "When a new builder signs up, this function checks that the email is unique, securely hashes the password with BCrypt so no plain text is ever stored, and saves the new user record to the database.",
+                  "technical_detail": "Invokes UserRepository.findByEmail() to enforce uniqueness, BCryptPasswordEncoder.encode() for adaptive one-way hashing, and persists the entity in a Spring @Transactional boundary.",
+                  "key_takeaways": [
+                    "Never store raw passwords in a database",
+                    "Wrap multi-step database operations in transactions to avoid inconsistent state",
+                    "Validate inputs before triggering expensive cryptographic operations"
+                  ]
+                }
+                """;
+            case "debug_guide" -> """
+                {
+                  "layer": "database",
+                  "title": "Database Connection Refused on Port 5432",
+                  "analogy": "Like trying to plug an appliance into an electrical outlet that has had its circuit breaker tripped.",
+                  "plain_cause": "The application server tried to communicate with PostgreSQL at localhost:5432, but no service answered the network request. The database is either stopped or listening on a different port.",
+                  "technical_cause": "PSQLException: Connection to localhost:5432 refused. TCP socket handshake failed via HikariPool-1 connection attempt.",
+                  "fix_steps": [
+                    "Start PostgreSQL using Docker: run 'docker compose up -d postgres'",
+                    "If running locally without Docker, start Spring Boot with '-Dspring-boot.run.profiles=dev' to use the embedded database",
+                    "Verify the database port with 'netstat -an | grep 5432' or 'docker ps'"
+                  ],
+                  "preventive_tip": "Configure Docker healthchecks so application containers wait for database readiness before booting."
+                }
+                """;
             default -> "{}";
         };
 

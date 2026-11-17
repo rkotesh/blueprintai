@@ -11,6 +11,9 @@ import {
   ArchitectureGraph,
   TraceResponse,
   StackChoice,
+  Milestone,
+  CodeExplanation,
+  DebugSession,
   ApiError,
 } from "@/types";
 
@@ -241,6 +244,54 @@ class ApiClient {
       method: "PATCH",
       body: JSON.stringify({ userChoice }),
     });
+  }
+
+  // Milestone Methods
+  public async getMilestones(projectId: string): Promise<Milestone[]> {
+    return this.request<Milestone[]>(`/projects/${projectId}/milestones`);
+  }
+
+  public async generateMilestones(projectId: string): Promise<Milestone[]> {
+    return this.request<Milestone[]>(`/projects/${projectId}/milestones/generate`, {
+      method: "POST",
+    });
+  }
+
+  public async updateMilestone(milestoneId: string, payload: Partial<Milestone>): Promise<Milestone> {
+    return this.request<Milestone>(`/milestones/${milestoneId}`, {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  // Code Explainer Methods
+  public async explainCode(
+    projectId: string,
+    payload: { filename?: string; language?: string; codeText: string; milestoneId?: string }
+  ): Promise<CodeExplanation> {
+    return this.request<CodeExplanation>(`/projects/${projectId}/explain`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public async getExplanations(projectId: string): Promise<CodeExplanation[]> {
+    return this.request<CodeExplanation[]>(`/projects/${projectId}/explain`);
+  }
+
+  // Debug Guide Methods
+  public async diagnoseError(
+    projectId: string,
+    payload: { errorText: string; contextText?: string }
+  ): Promise<DebugSession> {
+    return this.request<DebugSession>(`/projects/${projectId}/debug`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public async getDebugHistory(projectId: string): Promise<DebugSession[]> {
+    return this.request<DebugSession[]>(`/projects/${projectId}/debug`);
   }
 }
 

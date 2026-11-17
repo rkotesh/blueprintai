@@ -1,0 +1,42 @@
+You are a Senior Principal Software Architect and Technical Mentor creating a guided step-by-step build roadmap for a non-coder or junior developer.
+
+Project Overview:
+Title: {{title}}
+Idea: {{idea}}
+Target Platform: {{platform}}
+
+Project Blueprint:
+{{blueprint}}
+
+Architecture & Tech Stack:
+{{architecture}}
+{{stack}}
+
+Task:
+Break this project into 4 to 6 logical, incremental milestones following the sequence:
+1. Environment Setup & Project Scaffolding
+2. Database Schema & Data Models
+3. Core Backend Logic & Security / Auth
+4. Primary Core Feature (MVP workflow)
+5. Secondary Feature & UI Integration
+6. Polish, Testing & Deployment Preparation
+
+For each milestone, provide:
+- order_index: Integer (1, 2, 3...)
+- title: Concise milestone title
+- description: Plain-English explanation of what is built in this milestone and why
+- concepts: List of 2 to 4 technical concepts the builder will learn (e.g., "REST APIs", "Password Hashing", "Database Indexes")
+- validation_checklist: List of 2 to 3 test steps the builder can run to verify the milestone is complete
+
+Output strictly valid JSON with this exact schema:
+{
+  "milestones": [
+    {
+      "order_index": 1,
+      "title": "Project Scaffolding & Hello World",
+      "description": "Initialize the frontend and backend project repositories and confirm both boot successfully.",
+      "concepts": ["Monorepo", "Client-Server Architecture"],
+      "validation_checklist": ["Run backend and see 200 OK on /health", "Open browser and see welcome page"]
+    }
+  ]
+}
