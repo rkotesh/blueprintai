@@ -30,6 +30,7 @@ import {
   History,
   GraduationCap,
   BrainCircuit,
+  FileText,
 } from "lucide-react";
 
 const SAMPLE_ERRORS = [
@@ -214,6 +215,13 @@ export default function DebugPage() {
           >
             <BrainCircuit className="h-3.5 w-3.5" />
             <span>Check</span>
+          </Link>
+          <Link
+            href={`/projects/${projectId}/export`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <FileText className="h-3.5 w-3.5" />
+            <span>Export</span>
           </Link>
         </div>
       </div>

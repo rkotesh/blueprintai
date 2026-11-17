@@ -344,6 +344,15 @@ class ApiClient {
   public async getUnderstandingHistory(projectId: string): Promise<UnderstandingCheck[]> {
     return this.request<UnderstandingCheck[]>(`/projects/${projectId}/understanding/history`);
   }
+
+  // Export & Offline Handbook Methods
+  public async getHandbookPreview(projectId: string): Promise<{ markdown: string }> {
+    return this.request<{ markdown: string }>(`/projects/${projectId}/export/handbook/preview`);
+  }
+
+  public getHandbookDownloadUrl(projectId: string): string {
+    return `${API_BASE_URL}/projects/${projectId}/export/handbook.md`;
+  }
 }
 
 export const api = new ApiClient();

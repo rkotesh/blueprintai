@@ -25,6 +25,7 @@ import {
   Code2,
   Bug,
   GraduationCap,
+  FileText,
 } from "lucide-react";
 
 export default function UnderstandingCheckPage() {
@@ -194,6 +195,13 @@ export default function UnderstandingCheckPage() {
             <BrainCircuit className="h-3.5 w-3.5 text-primary" />
             <span>Check</span>
           </span>
+          <Link
+            href={`/projects/${projectId}/export`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <FileText className="h-3.5 w-3.5" />
+            <span>Export</span>
+          </Link>
         </div>
       </div>
 
