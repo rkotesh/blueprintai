@@ -28,3 +28,8 @@ This log records all architectural, library, and technical decisions made during
 - **Date:** 2026-11-17
 - **Decision:** Implement `MockOpenAiClient` as a drop-in bean under the `test` profile alongside the production `OpenAiClient`.
 - **Reason:** Guarantees deterministic, fast, zero-cost, and network-independent test runs across CI and local environments.
+
+## 6. Maven Surefire Dynamic Agent Loading Configuration
+- **Date:** 2026-11-17
+- **Decision:** Configure Maven Surefire plugin with `-XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true`.
+- **Reason:** In Java 21 on Windows, dynamic ByteBuddy agent attachment triggers warnings and named-pipe attach operations that can disrupt Surefire's stream handling unless dynamic agent loading is explicitly enabled.
