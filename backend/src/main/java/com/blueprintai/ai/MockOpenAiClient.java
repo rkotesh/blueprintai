@@ -333,6 +333,65 @@ public class MockOpenAiClient implements AiClient {
                   "preventive_tip": "Configure Docker healthchecks so application containers wait for database readiness before booting."
                 }
                 """;
+            case "quiz_generate" -> """
+                {
+                  "questions": [
+                    {
+                      "question": "Why do web applications hash user passwords before storing them in the database?",
+                      "options": [
+                        "To make passwords shorter so they take less database storage",
+                        "So that even if the database is leaked, attackers cannot read plain-text passwords",
+                        "Because SQL databases only accept encrypted strings",
+                        "To speed up the user login query"
+                      ],
+                      "correct_index": 1,
+                      "explanation": "Hashing with algorithms like BCrypt protects users by transforming passwords into irreversible mathematical hashes."
+                    },
+                    {
+                      "question": "What is the primary role of a JSON Web Token (JWT) in stateless authentication?",
+                      "options": [
+                        "It acts as a digital passport proving user identity on each request without server-side session lookups",
+                        "It permanently stores user credit card numbers on the server",
+                        "It encrypts the entire HTTP body of every request",
+                        "It connects the backend to the database directly"
+                      ],
+                      "correct_index": 0,
+                      "explanation": "JWTs contain cryptographically signed claims verifying the user's identity statelessly."
+                    },
+                    {
+                      "question": "How does a database index improve query performance?",
+                      "options": [
+                        "It duplicates all tables into RAM memory permanently",
+                        "It creates a balanced search tree (B-Tree) that allows finding rows in log(N) time instead of scanning the full table",
+                        "It prevents duplicate records from ever being inserted",
+                        "It compresses the database files on disk"
+                      ],
+                      "correct_index": 1,
+                      "explanation": "An index acts like the index at the back of a textbook, pointing straight to relevant rows without a full table scan."
+                    }
+                  ]
+                }
+                """;
+            case "understanding_check" -> """
+                {
+                  "total_score": 88,
+                  "dimensions": {
+                    "architecture": { "score": 23, "comment": "Clear understanding of client vs server and data flow." },
+                    "stack_reasons": { "score": 22, "comment": "Good justification for PostgreSQL relational integrity and Next.js frontend." },
+                    "user_flows": { "score": 23, "comment": "Step-by-step description of signup and data persistence is spot on." },
+                    "edge_cases": { "score": 20, "comment": "Mentioned duplicate emails; consider token expiration and network retries." }
+                  },
+                  "strengths": [
+                    "Understands client-server separation and why passwords must never be stored in plain text",
+                    "Clearly explains why PostgreSQL relational tables fit user accounts"
+                  ],
+                  "gaps": [
+                    "Review how the browser uses refresh tokens to maintain logins when access tokens expire"
+                  ],
+                  "constructive_feedback": "Excellent mental model! You clearly grasp how your application processes requests and persists data. Reviewing stateless token expiration will complete your understanding.",
+                  "recommended_concepts": ["jwt-auth", "database-indexes"]
+                }
+                """;
             default -> "{}";
         };
 

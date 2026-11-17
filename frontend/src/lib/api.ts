@@ -14,6 +14,11 @@ import {
   Milestone,
   CodeExplanation,
   DebugSession,
+  GlossaryTerm,
+  Concept,
+  Quiz,
+  QuizAttempt,
+  UnderstandingCheck,
   ApiError,
 } from "@/types";
 
@@ -292,6 +297,52 @@ class ApiClient {
 
   public async getDebugHistory(projectId: string): Promise<DebugSession[]> {
     return this.request<DebugSession[]>(`/projects/${projectId}/debug`);
+  }
+
+  // Learning Layer Methods
+  public async getGlossary(projectId: string): Promise<GlossaryTerm[]> {
+    return this.request<GlossaryTerm[]>(`/projects/${projectId}/learning/glossary`);
+  }
+
+  public async getConcepts(projectId: string): Promise<Concept[]> {
+    return this.request<Concept[]>(`/projects/${projectId}/learning/concepts`);
+  }
+
+  public async updateConceptProgress(projectId: string, slug: string, status: string): Promise<Concept> {
+    return this.request<Concept>(`/projects/${projectId}/learning/concepts/${slug}`, {
+      method: "PUT",
+      body: JSON.stringify({ status }),
+    });
+  }
+
+  public async generateQuiz(projectId: string, milestoneId?: string): Promise<Quiz> {
+    return this.request<Quiz>(`/projects/${projectId}/learning/quizzes/generate`, {
+      method: "POST",
+      body: JSON.stringify({ milestoneId }),
+    });
+  }
+
+  public async submitQuizAttempt(projectId: string, quizId: string, answers: number[]): Promise<QuizAttempt> {
+    return this.request<QuizAttempt>(`/projects/${projectId}/learning/quizzes/${quizId}/attempt`, {
+      method: "POST",
+      body: JSON.stringify({ answers }),
+    });
+  }
+
+  public async getQuizAttempts(projectId: string, quizId: string): Promise<QuizAttempt[]> {
+    return this.request<QuizAttempt[]>(`/projects/${projectId}/learning/quizzes/${quizId}/attempts`);
+  }
+
+  // Understanding Check Methods
+  public async evaluateUnderstanding(projectId: string, summary: string): Promise<UnderstandingCheck> {
+    return this.request<UnderstandingCheck>(`/projects/${projectId}/understanding/evaluate`, {
+      method: "POST",
+      body: JSON.stringify({ summary }),
+    });
+  }
+
+  public async getUnderstandingHistory(projectId: string): Promise<UnderstandingCheck[]> {
+    return this.request<UnderstandingCheck[]>(`/projects/${projectId}/understanding/history`);
   }
 }
 

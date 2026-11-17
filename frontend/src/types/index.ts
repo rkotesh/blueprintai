@@ -214,6 +214,78 @@ export interface DebugSession {
   createdAt: string;
 }
 
+export interface GlossaryTerm {
+  id: string;
+  projectId?: string;
+  term: string;
+  definition: string;
+  analogy: string;
+  createdAt: string;
+}
+
+export interface Concept {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  layer: string;
+  userStatus: string;
+}
+
+export interface QuizQuestion {
+  question: string;
+  options: string[];
+  correct_index: number;
+  explanation: string;
+}
+
+export interface Quiz {
+  id: string;
+  projectId: string;
+  milestoneId?: string;
+  questions: QuizQuestion[];
+  createdAt: string;
+}
+
+export interface QuizAttempt {
+  id: string;
+  quizId: string;
+  score: number;
+  totalQuestions: number;
+  answers: number[];
+  questions: QuizQuestion[];
+  createdAt: string;
+}
+
+export interface UnderstandingDimension {
+  score: number;
+  comment: string;
+}
+
+export interface UnderstandingFeedback {
+  total_score: number;
+  dimensions: {
+    architecture?: UnderstandingDimension;
+    stack_reasons?: UnderstandingDimension;
+    user_flows?: UnderstandingDimension;
+    edge_cases?: UnderstandingDimension;
+    [key: string]: UnderstandingDimension | undefined;
+  };
+  strengths: string[];
+  gaps: string[];
+  constructive_feedback: string;
+  recommended_concepts: string[];
+}
+
+export interface UnderstandingCheck {
+  id: string;
+  projectId: string;
+  userSummary: string;
+  score: number;
+  feedback: UnderstandingFeedback;
+  createdAt: string;
+}
+
 export interface ApiError {
   timestamp: string;
   status: number;

@@ -28,6 +28,8 @@ import {
   CheckSquare,
   Square,
   History,
+  GraduationCap,
+  BrainCircuit,
 } from "lucide-react";
 
 const SAMPLE_ERRORS = [
@@ -199,6 +201,20 @@ export default function DebugPage() {
             <Bug className="h-3.5 w-3.5 text-primary" />
             <span>Debug</span>
           </span>
+          <Link
+            href={`/projects/${projectId}/learn`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <GraduationCap className="h-3.5 w-3.5" />
+            <span>Learn</span>
+          </Link>
+          <Link
+            href={`/projects/${projectId}/check`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <BrainCircuit className="h-3.5 w-3.5" />
+            <span>Check</span>
+          </Link>
         </div>
       </div>
 

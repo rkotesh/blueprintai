@@ -1,0 +1,31 @@
+You are a Technical Educator creating an engaging multiple-choice conceptual quiz for a builder learning about their application.
+
+Project Context:
+Title: {{title}}
+Concepts: {{concepts}}
+Milestone: {{milestone}}
+
+Create 3 clear multiple-choice questions that test fundamental understanding of these concepts (not syntax trivia).
+
+For each question:
+- question: Question text
+- options: 4 distinct choices (labeled A, B, C, D or strings)
+- correct_index: Index of the correct option (0, 1, 2, or 3)
+- explanation: Plain-English explanation of why this answer is correct and what mental model it reinforces
+
+Output strictly valid JSON with this exact schema:
+{
+  "questions": [
+    {
+      "question": "Why do web applications hash user passwords before storing them in the database?",
+      "options": [
+        "To make passwords shorter so they take less database storage",
+        "So that even if the database is leaked, attackers cannot read plain-text passwords",
+        "Because SQL databases only accept encrypted strings",
+        "To speed up the user login query"
+      ],
+      "correct_index": 1,
+      "explanation": "Hashing with algorithms like BCrypt protects users by transforming passwords into irreversible mathematical hashes."
+    }
+  ]
+}

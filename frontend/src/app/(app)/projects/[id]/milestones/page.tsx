@@ -22,6 +22,8 @@ import {
   ArrowRight,
   BookOpen,
   Award,
+  GraduationCap,
+  BrainCircuit,
 } from "lucide-react";
 
 export default function MilestonesPage() {
@@ -162,6 +164,20 @@ export default function MilestonesPage() {
           >
             <Bug className="h-3.5 w-3.5" />
             <span>Debug</span>
+          </Link>
+          <Link
+            href={`/projects/${projectId}/learn`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <GraduationCap className="h-3.5 w-3.5" />
+            <span>Learn</span>
+          </Link>
+          <Link
+            href={`/projects/${projectId}/check`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-card transition-all"
+          >
+            <BrainCircuit className="h-3.5 w-3.5" />
+            <span>Check</span>
           </Link>
         </div>
       </div>
