@@ -42,17 +42,29 @@ public class GrokAiClient implements AiClient {
         RateLimiterService rateLimiterService
     ) {
         this.apiKey = apiKey;
-        this.model = model;
         this.maxRetries = maxRetries;
         this.objectMapper = objectMapper;
         this.usageLogger = usageLogger;
         this.rateLimiterService = rateLimiterService;
 
+        String resolvedBaseUrl = baseUrl;
+        String resolvedModel = model;
+        if (apiKey != null && apiKey.startsWith("gsk_")) {
+            if (baseUrl == null || baseUrl.contains("api.x.ai")) {
+                resolvedBaseUrl = "https://api.groq.com/openai/v1";
+            }
+            if (model == null || model.contains("grok") || model.contains("gpt-4o")) {
+                resolvedModel = "openai/gpt-oss-120b";
+            }
+            log.info("Detected Groq API key prefix ('gsk_'). Routing to Groq endpoint: {} with model: {}", resolvedBaseUrl, resolvedModel);
+        }
+        this.model = resolvedModel;
+
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(Duration.ofSeconds(timeoutSeconds));
         requestFactory.setReadTimeout(Duration.ofSeconds(timeoutSeconds));
 
-        String cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl.substring(0, baseUrl.length() - 1) : baseUrl;
+        String cleanBaseUrl = resolvedBaseUrl.endsWith("/") ? resolvedBaseUrl.substring(0, resolvedBaseUrl.length() - 1) : resolvedBaseUrl;
 
         this.restClient = RestClient.builder()
             .baseUrl(cleanBaseUrl)
