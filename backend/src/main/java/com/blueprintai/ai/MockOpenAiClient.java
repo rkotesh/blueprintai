@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-@Profile("test")
+@Profile({"test", "dev"})
 @RequiredArgsConstructor
 @Slf4j
 public class MockOpenAiClient implements AiClient {

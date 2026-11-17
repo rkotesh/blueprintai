@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:devdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:c29tZS1zdXBlci1zZWNyZXQtand0LWtleS1mb3ItYmx1ZXByaW50YWktcHJvZHVjdGlvbi1yZWFkeQ==}
+    access-token-expiration-minutes: 15
+    refresh-token-expiration-days: 14
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    model: ${OPENAI_MODEL:gpt-4o-mini}
+  cors:
+    allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}

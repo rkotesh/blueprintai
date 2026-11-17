@@ -19,7 +19,7 @@ import java.util.*;
 
 @Component
 @Primary
-@Profile("!test")
+@Profile("!test & !dev")
 @Slf4j
 public class OpenAiClient implements AiClient {
 
