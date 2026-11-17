@@ -38,3 +38,18 @@ This log records all architectural, library, and technical decisions made during
 - **Date:** 2026-11-18
 - **Decision:** Transition primary AI provider from OpenAI to xAI Grok API (`https://api.x.ai/v1`) using `GrokAiClient`, standardizing on model `grok-2-latest` (or `grok-beta`) with `response_format: { "type": "json_object" }` and schema extraction.
 - **Reason:** User request to integrate xAI Grok for high-speed reasoning and structured JSON output. Environment variables `GROK_API_KEY`, `GROK_BASE_URL`, and `GROK_MODEL` are configured with backward compatibility.
+
+## 8. Learning Layer Auto-Seeding & Concept Mastery Persistence
+- **Date:** 2026-11-18
+- **Decision:** Provide auto-seeded foundational engineering concepts and glossary terms on startup via `LearningService` while tracking per-user, per-concept status (`UNSEEN`, `UNDERSTOOD`) in `user_concept_progress`.
+- **Reason:** Ensures non-coders and beginners immediately have rich educational analogies, definitions, and layer groupings upon creating their first project.
+
+## 9. Understanding Check Web Speech API Integration
+- **Date:** 2026-11-18
+- **Decision:** Support speech-to-text dictation in the Understanding Check submission interface using the standard Web Speech API (`SpeechRecognition`/`webkitSpeechRecognition`) with client-side capability detection and graceful degradation to manual typing.
+- **Reason:** Allows builders to naturally speak their thoughts and architectural mental models aloud, mimicking an interactive engineering interview.
+
+## 10. Offline Markdown Handbook Export with Mermaid Diagrams
+- **Date:** 2026-11-18
+- **Decision:** Generate self-contained, offline Markdown handbooks (`/api/projects/{id}/export/handbook.md`) containing live Mermaid flowcharts, tech stack trade-offs, feature specifications, build milestones, and the complete glossary.
+- **Reason:** Gives solo founders and builders a portable, vendor-independent architectural blueprint they can keep in their repositories or share with external reviewers.
