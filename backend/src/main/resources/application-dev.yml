@@ -20,8 +20,14 @@ app:
     secret: ${JWT_SECRET:c29tZS1zdXBlci1zZWNyZXQtand0LWtleS1mb3ItYmx1ZXByaW50YWktcHJvZHVjdGlvbi1yZWFkeQ==}
     access-token-expiration-minutes: 15
     refresh-token-expiration-days: 14
+  ai:
+    provider: grok
+    api-key: ${GROK_API_KEY:${XAI_API_KEY:${OPENAI_API_KEY:}}}
+    base-url: ${GROK_BASE_URL:https://api.x.ai/v1}
+    model: ${GROK_MODEL:grok-2-latest}
   openai:
-    api-key: ${OPENAI_API_KEY:}
-    model: ${OPENAI_MODEL:gpt-4o-mini}
+    api-key: ${GROK_API_KEY:${XAI_API_KEY:${OPENAI_API_KEY:}}}
+    model: ${GROK_MODEL:grok-2-latest}
+    base-url: ${GROK_BASE_URL:https://api.x.ai/v1}
   cors:
     allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}

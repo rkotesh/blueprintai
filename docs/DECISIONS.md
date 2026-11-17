@@ -33,3 +33,8 @@ This log records all architectural, library, and technical decisions made during
 - **Date:** 2026-11-17
 - **Decision:** Configure Maven Surefire plugin with `-XX:+EnableDynamicAgentLoading -Dnet.bytebuddy.experimental=true`.
 - **Reason:** In Java 21 on Windows, dynamic ByteBuddy agent attachment triggers warnings and named-pipe attach operations that can disrupt Surefire's stream handling unless dynamic agent loading is explicitly enabled.
+
+## 7. Migration from OpenAI to xAI / Grok API
+- **Date:** 2026-11-18
+- **Decision:** Transition primary AI provider from OpenAI to xAI Grok API (`https://api.x.ai/v1`) using `GrokAiClient`, standardizing on model `grok-2-latest` (or `grok-beta`) with `response_format: { "type": "json_object" }` and schema extraction.
+- **Reason:** User request to integrate xAI Grok for high-speed reasoning and structured JSON output. Environment variables `GROK_API_KEY`, `GROK_BASE_URL`, and `GROK_MODEL` are configured with backward compatibility.

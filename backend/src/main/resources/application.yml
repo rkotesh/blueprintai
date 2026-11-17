@@ -37,13 +37,19 @@ app:
     secret: ${JWT_SECRET:c29tZS1zdXBlci1zZWNyZXQtand0LWtleS1mb3ItYmx1ZXByaW50YWktcHJvZHVjdGlvbi1yZWFkeQ==}
     access-token-expiration-minutes: ${JWT_ACCESS_MINUTES:15}
     refresh-token-expiration-days: ${JWT_REFRESH_DAYS:14}
-  openai:
-    api-key: ${OPENAI_API_KEY:}
-    model: ${OPENAI_MODEL:gpt-4o-mini}
-    timeout-seconds: ${OPENAI_TIMEOUT_SECONDS:60}
-    max-retries: ${OPENAI_MAX_RETRIES:2}
+  ai:
+    provider: ${AI_PROVIDER:grok}
+    api-key: ${GROK_API_KEY:${XAI_API_KEY:${OPENAI_API_KEY:}}}
+    base-url: ${GROK_BASE_URL:https://api.x.ai/v1}
+    model: ${GROK_MODEL:grok-2-latest}
+    timeout-seconds: ${AI_TIMEOUT_SECONDS:60}
+    max-retries: ${AI_MAX_RETRIES:2}
     rate-limit-per-hour: ${AI_RATE_LIMIT_PER_HOUR:30}
     max-code-chars: ${AI_MAX_CODE_CHARS:20000}
+  openai:
+    api-key: ${GROK_API_KEY:${XAI_API_KEY:${OPENAI_API_KEY:}}}
+    model: ${GROK_MODEL:grok-2-latest}
+    base-url: ${GROK_BASE_URL:https://api.x.ai/v1}
   cors:
     allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}
 
